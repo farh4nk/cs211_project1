@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-module toUpper(A0,A1,A2,A3,A4,A5,A6,B0,B1,B2,B3,B4,B5,B6,B7);
-    input A0,A1,A2,A3,A4,A5,A6;
+module toUpper(A0,A1,A2,A3,A4,A5,A6,A7,B0,B1,B2,B3,B4,B5,B6,B7);
+    input A0,A1,A2,A3,A4,A5,A6,A7;
     output B0,B1,B2,B3,B4,B5,B6,B7;
 
     wire nA7, nA1;
