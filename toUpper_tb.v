@@ -1,56 +1,60 @@
 
 module toUpper_tb;
 
-reg A0, A1, A2, A3, A4, A5, A6, A7;
-wire B0, B1, B2, B3, B4, B5, B6, B7;
+reg [7:0] A;
+wire [7:0] B;
 
-toUpper dut (.A0(A0), .A1(A1), .A2(A2), .A3(A3), .A4(A4), .A5(A5), .A6(A6), .A7(A7),
-             .B0(B0), .B1(B1), .B2(B2), .B3(B3), .B4(B4), .B5(B5), .B6(B6), .B7(B7));
+toUpper t(.A(A), .B(B));
+
+reg [7:0] test [0:18];
+	integer i;
+	integer passed = 0;
+    integer failed = 0;
+	reg [7:0] expected;
 
 initial begin
-    $dumpfile("toUpper.vcd");
-    $dumpvars(0, toUpper_tb);
-    
-    // (
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b00101000; #15;
-    // H
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01001000; #15;
-    // .
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b10110111; #15;
-    // f
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b10000011; #15;
-    // |
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01111100; #15;
-    // DC4
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b00010100; #15;
-    // ë
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b11101011; #15;
-    // a
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01100001; #15;
-    // A
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01000001; #15;
-    // z
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01111010; #15;
-    // G
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01000111; #15;
-    // m
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01101101; #15;
-    // '
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b10010010; #15;
-    // 0
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b00110000; #15;
-    // Ï
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b11001111; #15;
-    // : 
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b00111010; #15;
-    // {
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01111011; #15;
-    // ”
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b10010100; #15;
-    // DEL
-    {A7,A6,A5,A4,A3,A2,A1,A0} = 8'b01111111; #15;
+	$dumpfile("toUpper.vcd");
+	$dumpvars(0, toUpper_tb);
+end
 
-    #50 $finish;
+
+initial begin    
+    test[0]=8'd40; 
+    test[1]=8'd72; 
+    test[2]=8'd183; 
+    test[3]=8'd131;
+	test[4]=8'd124; 
+    test[5]=8'd20; 
+    test[6]=8'd235; 
+    test[7]=8'd97;
+	test[8]=8'd65; 
+    test[9]=8'd122; 
+    test[10]=8'd71; 
+    test[11]=8'd109;
+	test[12]=8'd146; 
+    test[13]=8'd48; 
+    test[14]=8'd207; 
+    test[15]=8'd58;
+	test[16]=8'd123; 
+    test[17]=8'd148; 
+    test[18]=8'd127;
+
+    for (i = 0; i < 19; i = i+1) begin
+        val = test[i]
+        expected = (val >= 8'd97 && val <= 8'd122) ? (val & 8'hDF) : val; 
+        #26;
+
+        if out === expected begin
+            pass = pass + 1
+        end else begin
+            fail = fail + 1
+            $display("Expected: %c for input %c, got %c instead", expected, val, B);
+        end
+    end
+
+    $display("%0d/19 passed, %0d failed", passed, failed); 
+	$finish;
+
 end
 
 endmodule
